@@ -31,14 +31,17 @@ def on_press(key):
             print('_' * 15)
             print('Keys pressed:')
         if key == keyboard.Key.space:
+            print('Searching...')
             word_found = retrieve_word()
             if(word_found and len(word_found)):
                 word_found_colored = Fore.GREEN + word_found + Style.RESET_ALL
                 print('Found: ' + word_found_colored)
                 paste_word(word_found)
-                keys_pressed.clear()
-                print('_' * 15)
-                print('Keys pressed:')
+            else:
+                print(Fore.RED + 'Not found' + Style.RESET_ALL)
+            keys_pressed.clear()
+            print('_' * 15)
+            print('Keys pressed:')
 
     if len(keys_pressed):
         print(keys_pressed)
