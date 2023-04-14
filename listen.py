@@ -46,7 +46,6 @@ def on_press(key):
     if len(keys_pressed):
         print(keys_pressed)
 
-
 listener = keyboard.Listener(on_press=on_press)
 
 listener.start()
