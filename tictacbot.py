@@ -4,7 +4,7 @@ this_file_path = os.path.dirname(os.path.abspath(__file__))
 gutenberg = os.path.join(this_file_path, "gutenberg.txt")
 
 
-def tictacbot(letters: str, remaining_letters: list[str]) -> str | None:
+def tictacbot(letters: str, remaining_letters: list[str]) -> (dict["word": str, "score": int] | None):
     if letters.isalpha():
         letters = letters.lower()
 
@@ -16,4 +16,4 @@ def tictacbot(letters: str, remaining_letters: list[str]) -> str | None:
                     word_found = {"word": word.strip(), "score": score}
                     if best_word["score"] < word_found["score"]:
                         best_word = word_found
-            return best_word["word"]
+            return best_word
