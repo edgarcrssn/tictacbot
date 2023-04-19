@@ -4,8 +4,6 @@ import pyautogui
 from art import text2art
 from colorama import init, Fore, Style
 from tictacbot import tictacbot
-import json
-import random
 
 init()
 
@@ -18,9 +16,13 @@ def print_new_section(init: bool):
     if not init:
         print("\n")
         print("_" * 50)
-    label_colored = Fore.LIGHTYELLOW_EX + "Remaining letters: " + Style.RESET_ALL
-    print(label_colored + json.dumps(remaining_letters) + "\n")
-    print(Fore.LIGHTYELLOW_EX + "Keys pressed: " + Style.RESET_ALL)
+    label_colored = Fore.YELLOW + "Remaining letters: \n" + Style.RESET_ALL
+    remaining_letters_beautified = ""
+    for letter in remaining_letters:
+        letter_colored = Fore.LIGHTBLUE_EX + letter + Style.RESET_ALL
+        remaining_letters_beautified += "[" + letter_colored + "] "
+    print(label_colored + remaining_letters_beautified + "\n")
+    print(Fore.YELLOW + "Keys pressed: " + Style.RESET_ALL)
 
 
 def print_success_message():
@@ -59,7 +61,7 @@ def update_remaining_letters(word_found: str):
 
 
 def paste_word(word: str):
-    print("\n" + Fore.LIGHTBLUE_EX + "Pasting..." + Style.RESET_ALL)
+    print("\n" + Fore.YELLOW + "Pasting..." + Style.RESET_ALL)
     pyperclip.copy(word)
     pyautogui.press("backspace", presses=len(keys_pressed) + 1)
     pyautogui.hotkey("command", "v")
@@ -67,13 +69,13 @@ def paste_word(word: str):
 
 
 def escape():
-    print(Fore.LIGHTBLUE_EX + "Escaping..." + Style.RESET_ALL)
+    print(Fore.YELLOW + "Escaping..." + Style.RESET_ALL)
     keys_pressed.clear()
     print_new_section(init=False)
 
 
 def search():
-    print("\n" + Fore.LIGHTBLUE_EX + "Searching..." + Style.RESET_ALL)
+    print("\n" + Fore.YELLOW + "Searching..." + Style.RESET_ALL)
     global remaining_letters
     letters = "".join(keys_pressed)
     best_word = tictacbot(letters, remaining_letters)
@@ -81,12 +83,54 @@ def search():
     if best_word and best_word["word"] and len(best_word["word"]):
         word_found: str = best_word["word"]
         word_score: int = best_word["score"]
-        word_found_label_colored = Fore.LIGHTYELLOW_EX + "Found: " + Style.RESET_ALL
-        word_found_colored = word_found.replace(letters, Fore.GREEN +  letters + Style.RESET_ALL)
-        score_label_colored = Fore.LIGHTYELLOW_EX + "Score: " + Style.RESET_ALL
-        score = str(word_score) + '/' + str(len(remaining_letters))
+
+        word_found_label_colored = Fore.YELLOW + "Found: " + Style.RESET_ALL
+
+        word_found_colored = ""
+        remaining_letters_found = ""
+
+        word_found = word_found.replace(letters, letters.upper())
+        for letter in word_found:
+            if letter.isupper():
+                underlined = Style.BRIGHT + "\033[4m"
+                if letter.lower() in remaining_letters:
+                    if letter.lower() not in remaining_letters_found:
+                        word_found_colored += (
+                            Fore.LIGHTBLUE_EX
+                            + underlined
+                            + letter.lower()
+                            + Style.RESET_ALL
+                        )
+                        remaining_letters_found += letter.lower()
+                    else:
+                        word_found_colored += (
+                            underlined + letter.lower() + Style.RESET_ALL
+                        )
+                else:
+                    word_found_colored += underlined + letter.lower() + Style.RESET_ALL
+            elif letter.lower() in remaining_letters:
+                if letter.lower() not in remaining_letters_found:
+                    word_found_colored += Fore.LIGHTBLUE_EX + letter + Style.RESET_ALL
+                    remaining_letters_found += letter.lower()
+                else:
+                    word_found_colored += letter
+            else:
+                word_found_colored += letter
+
+        score_label_colored = Fore.YELLOW + "Score: " + Style.RESET_ALL
+        if word_score > 0:
+            score_colored = Fore.LIGHTBLUE_EX + str(word_score) + Style.RESET_ALL
+        else:
+            score_colored = Fore.RED + str(word_score) + Style.RESET_ALL
+        score = score_colored + "/" + str(len(remaining_letters))
         if word_score == len(remaining_letters):
-            score = Fore.GREEN + score + Style.RESET_ALL
+            score = (
+                Fore.GREEN
+                + str(word_score)
+                + "/"
+                + str(len(remaining_letters))
+                + Style.RESET_ALL
+            )
 
         print(
             word_found_label_colored
@@ -95,8 +139,8 @@ def search():
             + score_label_colored
             + score
         )
-        update_remaining_letters(word_found)
-        paste_word(word_found)
+        update_remaining_letters(word_found.lower())
+        paste_word(word_found.lower())
     else:
         print(Fore.RED + "Not found" + Style.RESET_ALL)
     keys_pressed.clear()
@@ -116,7 +160,7 @@ def on_press(key):
             search()
 
     if len(keys_pressed):
-        print(json.dumps(keys_pressed))
+        print("".join(keys_pressed))
 
 
 listener = keyboard.Listener(on_press=on_press)
