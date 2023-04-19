@@ -4,7 +4,7 @@ with open("README.md", "r") as f:
     long_description = f.read()
 
 setup(
-    name="tictacbot",
+    name="pytictacbot",
     version="1.0",
     packages=["tictacbot"],
     description="A program that makes you unbeatable at BombParty",
