@@ -93,7 +93,7 @@ def search():
         word_found = word_found.replace(str_to_search, str_to_search.upper())
         for letter in word_found:
             if letter.isupper():
-                underlined = Style.BRIGHT + "\033[4m"
+                underlined = "\033[4m"
                 if letter.lower() in remaining_letters:
                     if letter.lower() not in remaining_letters_found:
                         word_found_colored += (
