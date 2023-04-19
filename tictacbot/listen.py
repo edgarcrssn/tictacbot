@@ -3,12 +3,32 @@ import pyperclip
 import pyautogui
 from art import text2art
 from colorama import init, Fore, Style
-from tictacbot import tictacbot
+import os
+
+this_file_path = os.path.dirname(os.path.abspath(__file__))
+gutenberg = os.path.join(this_file_path, "gutenberg.txt")
 
 init()
 
 keys_pressed = []
 remaining_letters = list("abcdefghijklmnopqrstuvwxyz")
+
+
+def retrieve_best_word(
+    str_to_search: str, remaining_letters: list[str]
+) -> dict["word":str, "score":int] | None:
+    if str_to_search.isalpha():
+        str_to_search = str_to_search.lower()
+
+        best_word = {"word": None, "score": -1}
+        with open(gutenberg, "r", encoding="utf-8") as f:
+            for word in f:
+                if str_to_search in word:
+                    score = len(set(word) & set(remaining_letters))
+                    word_found = {"word": word.strip(), "score": score}
+                    if best_word["score"] < word_found["score"]:
+                        best_word = word_found
+            return best_word
 
 
 def print_new_section(init: bool):
@@ -78,7 +98,7 @@ def search():
     print("\n" + Fore.YELLOW + "Searching..." + Style.RESET_ALL)
     global remaining_letters
     str_to_search = "".join(keys_pressed)
-    best_word = tictacbot(str_to_search, remaining_letters)
+    best_word = retrieve_best_word(str_to_search, remaining_letters)
 
     if best_word and best_word["word"] and len(best_word["word"]):
         word_found: str = best_word["word"]
