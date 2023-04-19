@@ -77,19 +77,20 @@ def escape():
 def search():
     print("\n" + Fore.YELLOW + "Searching..." + Style.RESET_ALL)
     global remaining_letters
-    letters = "".join(keys_pressed)
-    best_word = tictacbot(letters, remaining_letters)
+    str_to_search = "".join(keys_pressed)
+    best_word = tictacbot(str_to_search, remaining_letters)
 
     if best_word and best_word["word"] and len(best_word["word"]):
         word_found: str = best_word["word"]
         word_score: int = best_word["score"]
 
+        # Colorization start (really annoying to read)
         word_found_label_colored = Fore.YELLOW + "Found: " + Style.RESET_ALL
 
         word_found_colored = ""
         remaining_letters_found = ""
 
-        word_found = word_found.replace(letters, letters.upper())
+        word_found = word_found.replace(str_to_search, str_to_search.upper())
         for letter in word_found:
             if letter.isupper():
                 underlined = Style.BRIGHT + "\033[4m"
@@ -131,6 +132,7 @@ def search():
                 + str(len(remaining_letters))
                 + Style.RESET_ALL
             )
+        # Colorization end (really annoying to read)
 
         print(
             word_found_label_colored
