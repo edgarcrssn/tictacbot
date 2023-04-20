@@ -1,12 +1,9 @@
+import os
 from pynput import keyboard
 import pyperclip
 import pyautogui
 from art import text2art
 from colorama import init, Fore, Style
-import os
-
-this_file_path = os.path.dirname(os.path.abspath(__file__))
-gutenberg = os.path.join(this_file_path, "gutenberg.txt")
 
 init()
 
@@ -19,6 +16,9 @@ def retrieve_best_word(
 ) -> dict["word":str, "score":int] | None:
     if str_to_search.isalpha():
         str_to_search = str_to_search.lower()
+
+        this_file_path = os.path.dirname(os.path.abspath(__file__))
+        gutenberg = os.path.join(this_file_path, "gutenberg.txt")
 
         best_word = {"word": None, "score": -1}
         with open(gutenberg, "r", encoding="utf-8") as f:
@@ -111,30 +111,29 @@ def search():
         remaining_letters_found = ""
 
         word_found = word_found.replace(str_to_search, str_to_search.upper())
+        underlined = "\033[4m"
+
         for letter in word_found:
             if letter.isupper():
-                underlined = "\033[4m"
-                if letter.lower() in remaining_letters:
-                    if letter.lower() not in remaining_letters_found:
-                        word_found_colored += (
-                            Fore.LIGHTBLUE_EX
-                            + underlined
-                            + letter.lower()
-                            + Style.RESET_ALL
-                        )
-                        remaining_letters_found += letter.lower()
-                    else:
-                        word_found_colored += (
-                            underlined + letter.lower() + Style.RESET_ALL
-                        )
-                else:
-                    word_found_colored += underlined + letter.lower() + Style.RESET_ALL
-            elif letter.lower() in remaining_letters:
-                if letter.lower() not in remaining_letters_found:
-                    word_found_colored += Fore.LIGHTBLUE_EX + letter + Style.RESET_ALL
+                if (
+                    letter.lower() in remaining_letters
+                    and letter.lower() not in remaining_letters_found
+                ):
+                    word_found_colored += (
+                        Fore.LIGHTBLUE_EX
+                        + underlined
+                        + letter.lower()
+                        + Style.RESET_ALL
+                    )
                     remaining_letters_found += letter.lower()
                 else:
-                    word_found_colored += letter
+                    word_found_colored += underlined + letter.lower() + Style.RESET_ALL
+            elif (
+                letter.lower() in remaining_letters
+                and letter.lower() not in remaining_letters_found
+            ):
+                word_found_colored += Fore.LIGHTBLUE_EX + letter + Style.RESET_ALL
+                remaining_letters_found += letter.lower()
             else:
                 word_found_colored += letter
 
