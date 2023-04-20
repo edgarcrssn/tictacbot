@@ -2,6 +2,8 @@
 
 A program that makes you unbeatable at [BombParty](https://jklm.fun/) (in french).
 
+![Demo](tictacbot-demo.gif)
+
 ## Installation
 
 ⚠️ This program requires a version of **Python** >= 3 installed on your machine.
