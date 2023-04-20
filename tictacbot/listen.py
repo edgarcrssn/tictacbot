@@ -4,12 +4,15 @@ import pyperclip
 import pyautogui
 from art import text2art
 from colorama import init, Fore, Style
+import unicodedata
 
 init()
 
 keys_pressed = []
 remaining_letters = list("abcdefghijklmnopqrstuvwxyz")
 
+def remove_accent(word: str) -> str:
+    return unicodedata.normalize('NFD', word).encode('ascii', 'ignore').decode('utf-8')
 
 def retrieve_best_word(
     str_to_search: str, remaining_letters: list[str]
@@ -23,8 +26,8 @@ def retrieve_best_word(
         best_word = {"word": None, "score": -1}
         with open(gutenberg, "r", encoding="utf-8") as f:
             for word in f:
-                if str_to_search in word:
-                    score = len(set(word) & set(remaining_letters))
+                if str_to_search in word: 
+                    score = len(set(remove_accent(word)) & set(remaining_letters))
                     word_found = {"word": word.strip(), "score": score}
                     if best_word["score"] < word_found["score"]:
                         best_word = word_found
@@ -73,7 +76,7 @@ def print_success_message():
 def update_remaining_letters(word_found: str):
     global remaining_letters
     remaining_letters = [
-        letter for letter in remaining_letters if letter not in word_found
+        letter for letter in remaining_letters if letter not in remove_accent(word_found)
     ]
     if len(remaining_letters) == 0:
         print_success_message()
@@ -114,10 +117,11 @@ def search():
         underlined = "\033[4m"
 
         for letter in word_found:
-            if letter.isupper():
+            letter_without_accent = remove_accent(letter)
+            if letter_without_accent.isupper():
                 if (
-                    letter.lower() in remaining_letters
-                    and letter.lower() not in remaining_letters_found
+                    letter_without_accent.lower() in remaining_letters
+                    and letter_without_accent.lower() not in remaining_letters_found
                 ):
                     word_found_colored += (
                         Fore.LIGHTBLUE_EX
@@ -125,15 +129,15 @@ def search():
                         + letter.lower()
                         + Style.RESET_ALL
                     )
-                    remaining_letters_found += letter.lower()
+                    remaining_letters_found += letter_without_accent.lower()
                 else:
                     word_found_colored += underlined + letter.lower() + Style.RESET_ALL
             elif (
-                letter.lower() in remaining_letters
-                and letter.lower() not in remaining_letters_found
+                letter_without_accent in remaining_letters
+                and letter_without_accent not in remaining_letters_found
             ):
                 word_found_colored += Fore.LIGHTBLUE_EX + letter + Style.RESET_ALL
-                remaining_letters_found += letter.lower()
+                remaining_letters_found += letter_without_accent
             else:
                 word_found_colored += letter
 
