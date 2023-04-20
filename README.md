@@ -4,6 +4,14 @@ A program that makes you unbeatable at [BombParty](https://jklm.fun/) (in french
 
 ![Demo](tictacbot-demo.gif)
 
+## Disclaimer
+
+I developed this program because I wanted to challenge myself with code and found it fun to try to create a bot that could follow the rules of the game perfectly.
+
+It's not meant to be used to ruin other players' games: for my part, I used it to amaze and make my friends laugh during our private games.
+
+Anyway, I doubt that many people find much interest in cheating on a simple board game without much at stake.
+
 ## Installation
 
 ⚠️ This program requires a version of [python](https://www.python.org/) >= 3 installed on your machine.
