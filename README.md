@@ -44,7 +44,7 @@ After a successful search, the found word will be automatically pasted. The "rem
 
 Before understanding how does it work, let's remember the rules of the bomb party :
 - The player will be given a series of letters. He will then have to find (as quickly as possible) a word that contains this series of letters *(ex: "iso" -> "ma**iso**n")*
-- The player starts with a list of all the letters in the alphabet. If, with the words he/she types during the game, the player manages to use all these letters at least once, then the player will gain an extra life.
+- The player starts with a list of all the letters in the alphabet, except "k", "w", "x", "y" and "z". If, with the words he/she types during the game, the player manages to use all these letters at least once, then the player will gain an extra life.
 
 Finally, the goal in each round would be to find a word containing the sequence of letters, but also the one that will unlock the most letters at once!
 

@@ -1,18 +1,22 @@
 import os
+import unicodedata
 from pynput import keyboard
 import pyperclip
 import pyautogui
 from art import text2art
 from colorama import init, Fore, Style
-import unicodedata
 
 init()
 
+letters_to_discover = list("abcdefghijlmnopqrstuv")
+
 keys_pressed = []
-remaining_letters = list("abcdefghijklmnopqrstuvwxyz")
+remaining_letters = letters_to_discover.copy()
+
 
 def remove_accent(word: str) -> str:
-    return unicodedata.normalize('NFD', word).encode('ascii', 'ignore').decode('utf-8')
+    return unicodedata.normalize("NFD", word).encode("ascii", "ignore").decode("utf-8")
+
 
 def retrieve_best_word(
     str_to_search: str, remaining_letters: list[str]
@@ -26,7 +30,7 @@ def retrieve_best_word(
         best_word = {"word": None, "score": -1}
         with open(gutenberg, "r", encoding="utf-8") as f:
             for word in f:
-                if str_to_search in word: 
+                if str_to_search in word:
                     score = len(set(remove_accent(word)) & set(remaining_letters))
                     word_found = {"word": word.strip(), "score": score}
                     if best_word["score"] < word_found["score"]:
@@ -76,11 +80,13 @@ def print_success_message():
 def update_remaining_letters(word_found: str):
     global remaining_letters
     remaining_letters = [
-        letter for letter in remaining_letters if letter not in remove_accent(word_found)
+        letter
+        for letter in remaining_letters
+        if letter not in remove_accent(word_found)
     ]
     if len(remaining_letters) == 0:
         print_success_message()
-        remaining_letters = list("abcdefghijklmnopqrstuvwxyz")
+        remaining_letters = letters_to_discover.copy()
 
 
 def paste_word(word: str):
