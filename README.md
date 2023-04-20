@@ -42,7 +42,7 @@ After a successful search, the found word will be automatically pasted. The "rem
 
 ## Rules
 
-Before understanding how does it work, let's remember the rules of the bomb party :
+Before understanding how does it work, let's remember the rules of the [jklm.fun's BombParty](https://jklm.fun/) :
 - The player will be given a series of letters. He will then have to find (as quickly as possible) a word that contains this series of letters *(ex: "iso" -> "ma**iso**n")*
 - The player starts with a list of all the letters in the alphabet, except "k", "w", "x", "y" and "z". If, with the words he/she types during the game, the player manages to use all these letters at least once, then the player will gain an extra life.
 
