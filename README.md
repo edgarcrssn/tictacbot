@@ -6,9 +6,9 @@ A program that makes you unbeatable at [BombParty](https://jklm.fun/) (in french
 
 ## Installation
 
-⚠️ This program requires a version of **Python** >= 3 installed on your machine.
+⚠️ This program requires a version of [python](https://www.python.org/) >= 3 installed on your machine.
 
-Install the [pytictacbot](https://pypi.org/project/pytictacbot/) module using *pip*:
+Install the [pytictacbot](https://pypi.org/project/pytictacbot/) module using *pip* (it is included with python):
 ```zsh
 pip install pytictacbot
 ```
@@ -17,12 +17,14 @@ pip install pytictacbot
 
 *Note: this program will only work on MacOS since it uses "Command + V" keys to paste. You can edit the code yourself if you want to adapt it to your environment.*
 
-In order for this program to work, you must allow "Accessibility" settings to the application that will run the script. Indeed, you need access to the input monitorig to listen to the keys you type.
+In order for this program to work, you must allow "Accessibility" settings to the application that will run the script. Indeed, you need access to the input monitoring to listen to the keys you type.
 
-- On your Mac, open *System settings*,
-- Open the *Privacy & Security* section,
-- Open the *Accessibility* section,
-- Allow the application in which you will run the script (ex: iTerm).
+On Mac:
+- Open *System settings*,
+- Navigate into the *Privacy & Security* section,
+- Click on *Accessibility*,
+- Allow the application(s) in which you will run the script (ex: iTerm, Visual Studio Code...),
+- Go back, then do the same thing for *Input Monitoring*.
 
 Once this is done, it is ready to use !
 
