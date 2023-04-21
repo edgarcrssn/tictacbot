@@ -10,7 +10,8 @@ init()
 
 letters_to_discover = list("abcdefghijlmnopqrstuv")
 
-keys_pressed = []
+keys_pressed: list[str] = []
+words_already_used: list[str] = []
 remaining_letters = letters_to_discover.copy()
 
 
@@ -30,11 +31,13 @@ def retrieve_best_word(
         best_word = {"word": None, "score": -1}
         with open(gutenberg, "r", encoding="utf-8") as f:
             for word in f:
-                if str_to_search in word:
+                word = word.strip()
+                if str_to_search in word and word not in words_already_used:
                     score = len(set(remove_accent(word)) & set(remaining_letters))
-                    word_found = {"word": word.strip(), "score": score}
+                    word_found = {"word": word, "score": score}
                     if best_word["score"] < word_found["score"]:
                         best_word = word_found
+            words_already_used.append(best_word["word"])
             return best_word
 
 
