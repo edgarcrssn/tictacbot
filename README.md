@@ -72,4 +72,4 @@ Finally, it will erase the sequence of letters that has ben typed by the user an
 
 ## TODO's
 
-[] **Correct this issue**: Currently, the program does not remain the words that has been used by the other players (only those that the player himself used). This can sometimes result in the reuse of an already used word (cf. 2nd rule).
+- [ ] **Correct this issue**: Currently, the program does not remain the words that has been used by the other players (only those that the player himself used). This can sometimes result in the reuse of an already used word (cf. 2nd rule).
