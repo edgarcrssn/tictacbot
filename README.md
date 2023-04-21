@@ -66,11 +66,11 @@ It will display everything on the interface to make it easier for the user to un
 When the user will press escape to search the best word including the sequence of letters he/she typed, *Tictacbot* will crawl a file containing all the words of the French language.
 
 It will first determine a list of all words containing the given sequence of letters.
-Then, it will crawl this list and, for each word, calculate a score using the letters to discover (cf. 3rd rule). It will finally return the word with the highest possible score.
+Then, it will crawl this list and, for each word, calculate a score using the letters to discover (cf. 3rd rule). At the end, it will return the word with the highest possible score.
 
 Finally, it will erase the sequence of letters that has ben typed by the user and paste the word instead.
 
 ## TODO's
 
 - [ ] **Handling this case**: Currently, the program does not remain the words that has been used by the other players (only those that the player himself used). This can sometimes result in the reuse of an already used word (cf. 2nd rule).
-- [ ] **Refining the source**: In rare cases, a word retrieved by *Tictacbot* may not be accepted in the game. In this case, manually remove the word from the [source file](tictacbot/gutenberg.txt).
+- [ ] **Refining the source**: In rare cases, a word retrieved by *Tictacbot* may not be accepted in the game. In this case, manually remove the word from [the source file](tictacbot/gutenberg.txt).
