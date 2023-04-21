@@ -72,4 +72,5 @@ Finally, it will erase the sequence of letters that has ben typed by the user an
 
 ## TODO's
 
-- [ ] **Correct this issue**: Currently, the program does not remain the words that has been used by the other players (only those that the player himself used). This can sometimes result in the reuse of an already used word (cf. 2nd rule).
+- [ ] **Handling this case**: Currently, the program does not remain the words that has been used by the other players (only those that the player himself used). This can sometimes result in the reuse of an already used word (cf. 2nd rule).
+- [ ] **Refining the source**: In rare cases, a word retrieved by *Tictacbot* may not be accepted in the game. In this case, manually remove the word from the [source file](tictacbot/gutenberg.txt).
