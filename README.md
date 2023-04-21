@@ -51,10 +51,11 @@ After a successful search, the found word will be automatically pasted. The "rem
 ## Rules
 
 Before understanding how does it work, let's remember the rules of the [jklm.fun's BombParty](https://jklm.fun/) :
-- The player will be given a series of letters. He will then have to find (as quickly as possible) a word that contains this series of letters *(ex: "iso" -> "ma**iso**n")*
-- The player starts with a list of all the letters in the alphabet, except "k", "w", "x", "y" and "z". If, with the words he/she types during the game, the player manages to use all these letters at least once, then the player will gain an extra life.
+1. The player will be given a series of letters. He will then have to find (as quickly as possible) a word that contains this series of letters *(ex: "iso" -> "ma**iso**n")*
+2. The player can't reuse a word that has already been used during the game.
+3. The player starts with a list of all the letters in the alphabet, except "k", "w", "x", "y" and "z". If, with the words he/she types during the game, the player manages to use all these letters at least once, then the player will gain an extra life.
 
-Finally, the goal in each round would be to find a word containing the sequence of letters, but also the one that will unlock the most letters at once!
+Finally, the goal in each round would be to find a word containing the sequence of letters, that has not been used already, but also the one that will unlock the most letters at once!
 
 ## How does it work ?
 
@@ -62,9 +63,13 @@ Once the script is launched, it will run in the background, listening to the key
 
 It will display everything on the interface to make it easier for the user to understand what is happening in the background.
 
-When the user will press escape to search the best word including the sequence of letters he/she typed, the *Tictacbot* will crawl a file containing all the words of the French language.
+When the user will press escape to search the best word including the sequence of letters he/she typed, *Tictacbot* will crawl a file containing all the words of the French language.
 
 It will first determine a list of all words containing the given sequence of letters.
-Then, it will crawl this list and, for each word, calculate a score using the letters to discover (cf. 2nd rule). It will finally return the word with the highest possible score.
+Then, it will crawl this list and, for each word, calculate a score using the letters to discover (cf. 3rd rule). It will finally return the word with the highest possible score.
 
 Finally, it will erase the sequence of letters that has ben typed by the user and paste the word instead.
+
+## TODO's
+
+[] **Correct this issue**: Currently, the program does not remain the words that has been used by the other players (only those that the player himself used). This can sometimes result in the reuse of an already used word (cf. 2nd rule).
