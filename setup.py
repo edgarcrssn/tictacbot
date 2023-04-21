@@ -5,7 +5,7 @@ with open("README.md", "r") as f:
 
 setup(
     name="pytictacbot",
-    version="1.6",
+    version="1.7",
     packages=["tictacbot"],
     include_package_data=True,
     description="A program that makes you unbeatable at BombParty",

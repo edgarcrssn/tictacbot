@@ -23,8 +23,6 @@ pip install pytictacbot
 
 ## Usage
 
-*Note: this program will only work on MacOS since it uses "Command + V" keys to paste. Feel free to edit the code yourself if you want to adapt it to your environment.*
-
 In order for this program to work, you must grant access to *Accessibility* and *Input Monitoring* to the application that will run the script. Indeed, the program need access to listen to the keys you type.
 
 On Mac:
@@ -75,3 +73,4 @@ Finally, it will erase the sequence of letters that has ben typed by the user an
 
 - [ ] **Handling this case**: Currently, the program does not remain the words that has been used by the other players (only those that the player himself used). This can sometimes result in the reuse of an already used word (cf. 2nd rule).
 - [ ] **Refining the source**: In rare cases, a word retrieved by *Tictacbot* may not be accepted in the game. In this case, manually remove the word from [the source file](tictacbot/gutenberg.txt).
+- [x] **Manage all environments**: Adapt the keyboard shortcuts to the user's operating system and keyboard layout.
