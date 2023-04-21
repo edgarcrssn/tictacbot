@@ -10,9 +10,12 @@ from colorama import init, Fore, Style
 init()
 
 platform_system = platform.system()
+control_key = "control"
+if platform_system == "Darwin":  # macOS
+    control_key = "command"
 
 letters_to_discover = list("abcdefghijlmnopqrstuv")
-keys_pressed: list[str] = []
+letters_pressed: list[str] = []
 words_already_used: list[str] = []
 remaining_letters = letters_to_discover.copy()
 
@@ -51,10 +54,10 @@ def print_new_section(init: bool):
     label_colored = Fore.YELLOW + "Remaining letters: \n" + Style.RESET_ALL
     remaining_letters_beautified = ""
     for letter in remaining_letters:
-        letter_colored = Fore.LIGHTBLUE_EX + letter + Style.RESET_ALL
+        letter_colored = Fore.LIGHTBLUE_EX + letter.upper() + Style.RESET_ALL
         remaining_letters_beautified += "[" + letter_colored + "] "
     print(label_colored + remaining_letters_beautified + "\n")
-    print(Fore.YELLOW + "Keys pressed: " + Style.RESET_ALL)
+    print(Fore.YELLOW + "Letters pressed: " + Style.RESET_ALL)
 
 
 def print_success_message():
@@ -94,33 +97,31 @@ def update_remaining_letters(word_found: str):
         remaining_letters = letters_to_discover.copy()
 
 
-def paste_word(word: str):
-    global keyboard_layout
+def paste_word_and_press_enter(word: str):
+    global control_key
     print("\n" + Fore.YELLOW + "Pasting..." + Style.RESET_ALL)
 
     pyperclip.copy(word)
 
-    control_key = "control"
-    if platform_system == "Darwin":  # macOS
-        control_key = "command"
-
     pyautogui.hotkey(control_key)  # init control key
     pyautogui.hotkey(control_key, "backspace")
     pyautogui.hotkey(control_key, "v")
+    pyautogui.hotkey("enter")
 
     print(Fore.GREEN + "Pasted !" + Style.RESET_ALL)
 
 
 def escape():
     print(Fore.YELLOW + "Escaping..." + Style.RESET_ALL)
-    keys_pressed.clear()
+    letters_pressed.clear()
     print_new_section(init=False)
 
 
 def search():
-    print("\n" + Fore.YELLOW + "Searching..." + Style.RESET_ALL)
+    print("\n")
+    print(Fore.YELLOW + "Searching..." + Style.RESET_ALL)
     global remaining_letters
-    str_to_search = "".join(keys_pressed)
+    str_to_search = "".join(letters_pressed)
     best_word = retrieve_best_word(str_to_search, remaining_letters)
 
     if best_word and best_word["word"] and len(best_word["word"]):
@@ -185,10 +186,12 @@ def search():
             + score
         )
         update_remaining_letters(word_found.lower())
-        paste_word(word_found.lower())
+        paste_word_and_press_enter(word_found.lower())
     else:
         print(Fore.RED + "Not found" + Style.RESET_ALL)
-    keys_pressed.clear()
+        pyautogui.hotkey(control_key)  # init control key
+        pyautogui.hotkey(control_key, "backspace")
+    letters_pressed.clear()
     print_new_section(init=False)
 
 
@@ -197,15 +200,17 @@ def on_press(key):
         key_char = key.char
         if not key_char.isalpha():
             return
-        keys_pressed.append(key_char)
+        letters_pressed.append(key_char)
     except AttributeError:
-        if key == keyboard.Key.esc:
+        if key == keyboard.Key.esc and len(letters_pressed):
             escape()
-        if key == keyboard.Key.space:
+        if key == keyboard.Key.space and len(letters_pressed):
             search()
+        if key == keyboard.Key.backspace and len(letters_pressed):
+            letters_pressed.pop(-1)
 
-    if len(keys_pressed):
-        print("".join(keys_pressed))
+    print("\r\033[K", end="", flush=True) # erase previous line
+    print("".join(letters_pressed).upper(), end="", flush=True)
 
 
 listener = keyboard.Listener(on_press=on_press)
