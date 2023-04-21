@@ -1,6 +1,5 @@
 import os
 import platform
-import locale
 import unicodedata
 from pynput import keyboard
 import pyperclip
@@ -11,17 +10,6 @@ from colorama import init, Fore, Style
 init()
 
 platform_system = platform.system()
-
-keyboard_layout = None
-lang, encoding = locale.getlocale()
-locale.setlocale(locale.LC_ALL, lang)
-if (
-    locale.nl_langinfo(locale.CODESET) == "UTF-8"
-    and locale.nl_langinfo(locale.YESEXPR) == "^[oOyY]"
-):
-    keyboard_layout = "qwerty"
-else:
-    keyboard_layout = "azerty"
 
 letters_to_discover = list("abcdefghijlmnopqrstuv")
 keys_pressed: list[str] = []
@@ -109,21 +97,17 @@ def update_remaining_letters(word_found: str):
 def paste_word(word: str):
     global keyboard_layout
     print("\n" + Fore.YELLOW + "Pasting..." + Style.RESET_ALL)
+
     pyperclip.copy(word)
+
+    control_key = "control"
     if platform_system == "Darwin":  # macOS
-        pyautogui.hotkey("command")  # init command key
-        if keyboard_layout == "azerty":
-            pyautogui.hotkey("command", "q")  # means command + a on azerty keyboard
-        else:
-            pyautogui.hotkey("command", "a")
-        pyautogui.hotkey("command", "v")
-    else:  # Windows, Linux...
-        pyautogui.hotkey("ctrl")  # init ctrl key
-        if keyboard_layout == "azerty":
-            pyautogui.hotkey("ctrl", "q")  # means ctrl + a on azerty keyboard
-        else:
-            pyautogui.hotkey("ctrl", "a")
-        pyautogui.hotkey("ctrl", "v")
+        control_key = "command"
+
+    pyautogui.hotkey(control_key)  # init control key
+    pyautogui.hotkey(control_key, "backspace")
+    pyautogui.hotkey(control_key, "v")
+
     print(Fore.GREEN + "Pasted !" + Style.RESET_ALL)
 
 
