@@ -42,7 +42,6 @@ tictacbot
 An interface will be displayed. It will listen to the keys you type. A history of these keys will be displayed on the interface.
 
 - To launch the search, **press the space bar**.
-- To cancel the keys you typed, **press the escape key**.
 - To quit, **press control+c**.
 
 After a successful search, the found word will be automatically pasted. The *remaining letters* list will be updated accordingly.
