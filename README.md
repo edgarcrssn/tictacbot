@@ -23,15 +23,15 @@ pip install pytictacbot
 
 ## Usage
 
-*Note: this program will only work on MacOS since it uses "Command + V" keys to paste. You can edit the code yourself if you want to adapt it to your environment.*
+*Note: this program will only work on MacOS since it uses "Command + V" keys to paste. Feel free to edit the code yourself if you want to adapt it to your environment.*
 
-In order for this program to work, you must allow "Accessibility" settings to the application that will run the script. Indeed, you need access to the input monitoring to listen to the keys you type.
+In order for this program to work, you must grant access to *Accessibility* and *Input Monitoring* to the application that will run the script. Indeed, the program need access to listen to the keys you type.
 
 On Mac:
 - Open *System settings*,
 - Navigate into the *Privacy & Security* section,
 - Click on *Accessibility*,
-- Allow the application(s) in which you will run the script (ex: iTerm, Visual Studio Code...),
+- Allow the application(s) in which you will run the script (ex: Terminal, iTerm...),
 - Go back, then do the same thing for *Input Monitoring*.
 
 Once this is done, it is ready to use !
@@ -44,9 +44,10 @@ tictacbot
 An interface will be displayed. It will listen to the keys you type. A history of these keys will be displayed in the interface.
 
 - To launch the search, **press the space bar**.
-- To cancel the keys you typed, **press the escape key**. 
+- To cancel the keys you typed, **press the escape key**.
+- To quit, **press control+c**
 
-After a successful search, the found word will be automatically pasted. The "remaining letters" list will be updated accordingly.
+After a successful search, the found word will be automatically pasted. The *remaining letters* list will be updated accordingly.
 
 ## Rules
 
