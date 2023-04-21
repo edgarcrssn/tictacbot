@@ -41,18 +41,18 @@ In your terminal, run:
 tictacbot
 ```
 
-An interface will be displayed. It will listen to the keys you type. A history of these keys will be displayed in the interface.
+An interface will be displayed. It will listen to the keys you type. A history of these keys will be displayed on the interface.
 
 - To launch the search, **press the space bar**.
 - To cancel the keys you typed, **press the escape key**.
-- To quit, **press control+c**
+- To quit, **press control+c**.
 
 After a successful search, the found word will be automatically pasted. The *remaining letters* list will be updated accordingly.
 
 ## Rules
 
 Before understanding how does it work, let's remember the rules of the [jklm.fun's BombParty](https://jklm.fun/) :
-1. The player will be given a series of letters. He will then have to find (as quickly as possible) a word that contains this series of letters *(ex: "iso" -> "ma**iso**n")*
+1. The player will be given a series of letters. He have to find (as quickly as possible) a word that contains this series of letters *(ex: "**iso**" -> "ma**iso**n")*
 2. The player can't reuse a word that has already been used during the game.
 3. The player starts with a list of all the letters in the alphabet, except "k", "w", "x", "y" and "z". If, with the words he/she types during the game, the player manages to use all these letters at least once, then the player will gain an extra life.
 
