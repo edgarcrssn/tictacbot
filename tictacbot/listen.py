@@ -61,28 +61,13 @@ def print_new_section(init: bool):
 
 
 def print_success_message():
-    text = "Alphabet completed !"
+    text = "+1 life!"
     width = len(text) + 4
     border = "-" * width
     content = f"| {text} |"
-    str = f"{border}\n{content}\n{border}"
+    message = f"{border}\n{content}\n{border}"
 
-    for i, char in enumerate(str):
-        color = i % 6
-        if color == 0:
-            print(Fore.RED + char, end="")
-        elif color == 1:
-            print(Fore.YELLOW + char, end="")
-        elif color == 2:
-            print(Fore.GREEN + char, end="")
-        elif color == 3:
-            print(Fore.CYAN + char, end="")
-        elif color == 4:
-            print(Fore.BLUE + char, end="")
-        elif color == 5:
-            print(Fore.MAGENTA + char, end="")
-
-    print(Style.RESET_ALL)
+    print(Fore.GREEN + '\n' + message + Style.RESET_ALL)
 
 
 def update_remaining_letters(word_found: str):
